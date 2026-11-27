@@ -1,4 +1,4 @@
-# 💸 AI-First Personal Expense Tracker
+﻿# ðŸ’¸ AI-First Personal Expense Tracker
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
@@ -9,52 +9,52 @@
 
 ---
 
-## 🏗️ System Architecture & AI Guardrails
+## ðŸ—ï¸ System Architecture & AI Guardrails
 
 Rather than letting an LLM write directly to storage or perform raw arithmetic, the system enforces a strict boundary between **probabilistic AI parsing** and **deterministic financial state**:
 
 ```text
   [Natural Language Input]                        [Manual Expense Form]
-            │                                               │
-            ▼                                               │
-  ┌───────────────────┐                                     │
-  │   Groq LLM API    │  (temperature=0, JSON mode)         │
-  └─────────┬─────────┘                                     │
-            ▼                                               │
-  ┌───────────────────┐                                     │
-  │  Pydantic Schema  │  (ExpenseBatch: types, enums, >0)   │
-  └─────────┬─────────┘                                     │
-            ▼                                               │
-  ┌───────────────────┐                                     │
-  │ Human-in-the-Loop │  (st.data_editor review/edit)       │
-  └─────────┬─────────┘                                     │
-            └───────────────────────┬───────────────────────┘
-                                    ▼
-                        ┌───────────────────────┐
-                        │ Atomic JSON Storage   │  (os.replace -> expenses.json)
-                        └───────────┬───────────┘
-                                    │
-            ┌───────────────────────┴───────────────────────┐
-            ▼                                               ▼
-  ┌───────────────────┐                           ┌───────────────────┐
-  │ Deterministic UI  │  (Current Month KPIs,     │ Grounded AI Coach │
-  │ & Filtered Charts │   Budget Bar, CSV Export) │ (Python-verified  │
-  └───────────────────┘                           │  JSON totals)     │
-                                                  └───────────────────┘
+            â”‚                                               â”‚
+            â–¼                                               â”‚
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                     â”‚
+  â”‚   Groq LLM API    â”‚  (temperature=0, JSON mode)         â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                     â”‚
+            â–¼                                               â”‚
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                     â”‚
+  â”‚  Pydantic Schema  â”‚  (ExpenseBatch: types, enums, >0)   â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                     â”‚
+            â–¼                                               â”‚
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                     â”‚
+  â”‚ Human-in-the-Loop â”‚  (st.data_editor review/edit)       â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                     â”‚
+            â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                    â–¼
+                        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                        â”‚ Atomic JSON Storage   â”‚  (os.replace -> expenses.json)
+                        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                    â”‚
+            â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+            â–¼                                               â–¼
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                           â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+  â”‚ Deterministic UI  â”‚  (Current Month KPIs,     â”‚ Grounded AI Coach â”‚
+  â”‚ & Filtered Charts â”‚   Budget Bar, CSV Export) â”‚ (Python-verified  â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                           â”‚  JSON totals)     â”‚
+                                                  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
 
-## 🚀 How to Run It
+## ðŸš€ How to Run It
 
 ### 1. Prerequisites
 - **Python 3.10+**
-- **Groq API Key (`GROQ_API_KEY`)** — required for AI Quick-Add and AI Spending Summary *(manual entry, filtering, budget tracking, charts, and CSV export work offline without an API key)*.
+- **Groq API Key (`GROQ_API_KEY`)** â€” required for AI Quick-Add and AI Spending Summary *(manual entry, filtering, budget tracking, charts, and CSV export work offline without an API key)*.
 
 ### 2. Clone & Install Dependencies
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/](https://github.com/)<your-username>/ai-expense-tracker.git
+git clone [https://github.com/](https://github.com/)Alfahadshahi007/ai-expense-tracker.git
 cd ai-expense-tracker
 
 # 2. Create and activate a virtual environment (recommended)
@@ -90,7 +90,7 @@ Navigate to `http://localhost:8501`. Click **Load Sample Expenses** in the left 
 
 ---
 
-## ⚖️ Stack Choices & Trade-Offs
+## âš–ï¸ Stack Choices & Trade-Offs
 
 | Layer | Technology Choice | Why It Was Chosen | Trade-Off Accepted |
 | :--- | :--- | :--- | :--- |
@@ -102,40 +102,40 @@ Navigate to `http://localhost:8501`. Click **Load Sample Expenses** in the left 
 
 ---
 
-## 📋 What's Done vs. What's Skipped
+## ðŸ“‹ What's Done vs. What's Skipped
 
 > Scoped intentionally to deliver end-to-end reliability, strict AI guardrails, and zero-setup local execution without over-engineering an MVP.
 
-### ✅ Done (Implemented & Verified)
+### âœ… Done (Implemented & Verified)
 
 | Feature Area | Implementation Details |
 | :--- | :--- |
 | **Dual Expense Capture** | **Manual Form** with strict field validation (`Title`, `Amount > 0`, `Category`, `Date` defaulting to today, `Note`) + **AI Quick-Add** supporting multi-expense batch extraction from natural language. |
 | **Human-in-the-Loop AI Guardrail** | Groq (`openai/gpt-oss-120b`) extracts structured JSON validated against Pydantic `ExpenseBatch` schemas, rendering an editable `st.data_editor` confirmation grid (with post-edit `YYYY-MM-DD` validation) before saving. |
-| **Current Month Summary & Budget** | Dedicated current-month KPIs (total spend, remaining budget against configurable sidebar `Monthly Budget (₹)`, transaction count, top category), live `st.progress` bar, overspend alert, and category breakdown. |
+| **Current Month Summary & Budget** | Dedicated current-month KPIs (total spend, remaining budget against configurable sidebar `Monthly Budget (â‚¹)`, transaction count, top category), live `st.progress` bar, overspend alert, and category breakdown. |
 | **Sorted & Multi-Filtered Ledger** | Chronologically sorted newest-first (`date` descending), filterable by **Category**, **Date Range** (`From Date` / `To Date` with inverted-range warning), and case-insensitive **Partial Title Match**, paired with a category bar chart and 1-click CSV export. |
 | **Grounded AI Financial Coach** | Pre-computes exact Python totals, category aggregations, and remaining monthly budget into a verified JSON payload so the LLM summarizes spending and answers questions with zero math hallucinations. |
 | **Data Hygiene & Demo Utilities** | Normalized `snake_case` schema with legacy key auto-migration, crash-safe atomic JSON writes (`os.replace`), single-entry deletion, and a 1-click **Load Sample Expenses** generator. |
 
-### ⏭️ Skipped (Intentionally Out of Scope for MVP)
+### â­ï¸ Skipped (Intentionally Out of Scope for MVP)
 
 | Deferred Feature | Architectural Rationale |
 | :--- | :--- |
 | **Authentication & Multi-User Accounts** | Scoped as a single-user local-first application to keep setup instantaneous (`streamlit run app.py`) and focus engineering effort on core workflows and AI reliability. |
 | **Vector Database RAG (Chroma / FAISS)** | Structured financial transactions fit cleanly in context alongside exact Python aggregations; vector embeddings would fragment rows and degrade numerical accuracy. |
 | **Inline Historical Edits & Recurring Rules** | Users can edit AI-extracted drafts before saving and delete saved entries; full in-place editing of historical ledger rows and automated recurring billing schedules were deferred. |
-| **Multi-Currency Live FX Conversion** | Standardized on local currency (`INR ₹`) to avoid external exchange-rate API dependencies and floating-point conversion drift. |
+| **Multi-Currency Live FX Conversion** | Standardized on local currency (`INR â‚¹`) to avoid external exchange-rate API dependencies and floating-point conversion drift. |
 
 ---
 
-## ⚠️ Known Rough Edges & Production Roadmap
+## âš ï¸ Known Rough Edges & Production Roadmap
 
 > Honest architectural trade-offs identified in the current MVP, paired with concrete fixes for production hardening:
 
 | Severity | Area | Current Behavior (Rough Edge) | Production Fix |
 | :---: | :--- | :--- | :--- |
-| 🟡 **Medium** | **AI Preview Grid Date Widget** | While post-edit validation catches invalid `YYYY-MM-DD` strings cleanly on save, the `date` column in `st.data_editor` still renders as a text field rather than a visual date picker. | Cast draft dates to `datetime.date` objects and bind `st.column_config.DateColumn(format="YYYY-MM-DD", required=True)` for native calendar selection. |
-| 🟡 **Medium** | **AI Summary Context Cap (50 Rows)** | `summarize_expenses_with_ai` computes exact totals and category rollups across **100%** of matching rows (keeping arithmetic accurate), but truncates individual transaction line items passed to the prompt to the 50 most recent entries to stay within token budgets. | Pair pre-computed category rollups with a top-N outlier extractor or Pandas/SQL query tool for deep historical queries over multi-year logs. |
-| 🟢 **Low** | **Single-File JSON Persistence** | `expenses.json` with atomic `os.replace()` prevents crash corruption and requires zero setup, but loads all records into memory and lacks multi-user write locking. | Migrate storage to **SQLite** (local) or **PostgreSQL** (multi-tenant) with composite indexes on `(date, category)`. |
-| 🟢 **Low** | **Ephemeral Sidebar Budget & Stale Summary** | The sidebar `Monthly Budget (₹)` resets to `₹10,000.00` on browser reload, and an already-generated AI summary remains displayed until regenerated even if table filters change. | Persist budget preferences in a companion `settings.json` file and invalidate `st.session_state.ai_summary` on filter state changes. |
-| 🟢 **Low** | **Fixed 5-Category Taxonomy** | Pydantic enforces a closed 5-category `Literal` (`Food`, `Transport`, `Shopping`, `Entertainment`, `Other`), causing recurring bills, healthcare, and subscriptions to group under `Other`. | Extend the schema enum to include `Bills & Utilities`, `Health`, and `Subscriptions`, or support user-defined custom categories. |
+| ðŸŸ¡ **Medium** | **AI Preview Grid Date Widget** | While post-edit validation catches invalid `YYYY-MM-DD` strings cleanly on save, the `date` column in `st.data_editor` still renders as a text field rather than a visual date picker. | Cast draft dates to `datetime.date` objects and bind `st.column_config.DateColumn(format="YYYY-MM-DD", required=True)` for native calendar selection. |
+| ðŸŸ¡ **Medium** | **AI Summary Context Cap (50 Rows)** | `summarize_expenses_with_ai` computes exact totals and category rollups across **100%** of matching rows (keeping arithmetic accurate), but truncates individual transaction line items passed to the prompt to the 50 most recent entries to stay within token budgets. | Pair pre-computed category rollups with a top-N outlier extractor or Pandas/SQL query tool for deep historical queries over multi-year logs. |
+| ðŸŸ¢ **Low** | **Single-File JSON Persistence** | `expenses.json` with atomic `os.replace()` prevents crash corruption and requires zero setup, but loads all records into memory and lacks multi-user write locking. | Migrate storage to **SQLite** (local) or **PostgreSQL** (multi-tenant) with composite indexes on `(date, category)`. |
+| ðŸŸ¢ **Low** | **Ephemeral Sidebar Budget & Stale Summary** | The sidebar `Monthly Budget (â‚¹)` resets to `â‚¹10,000.00` on browser reload, and an already-generated AI summary remains displayed until regenerated even if table filters change. | Persist budget preferences in a companion `settings.json` file and invalidate `st.session_state.ai_summary` on filter state changes. |
+| ðŸŸ¢ **Low** | **Fixed 5-Category Taxonomy** | Pydantic enforces a closed 5-category `Literal` (`Food`, `Transport`, `Shopping`, `Entertainment`, `Other`), causing recurring bills, healthcare, and subscriptions to group under `Other`. | Extend the schema enum to include `Bills & Utilities`, `Health`, and `Subscriptions`, or support user-defined custom categories. |
